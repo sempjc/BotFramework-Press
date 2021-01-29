@@ -1,0 +1,24 @@
+{
+  "name": "botframwork-press",
+  "version": "0.1.0",
+  "description": "A BotFramework content management plugin for Wordpress",
+  "main": "index.js",
+  "dependencies": {
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sempjc/BotFramework-Press.git"
+  },
+  "author": "Jean Carlo Semprit Rodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sempjc/BotFramework-Press/issues"
+  },
+  "homepage": "https://github.com/sempjc/BotFramework-Press#readme"
+}
