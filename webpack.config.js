@@ -1,12 +1,17 @@
+// Reference:
+//https://www.freecodecamp.org/news/learn-webpack-for-react-a36d4cac5060/
+
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const config = require( './config.json' );
 
 const webpackConfig = {
+	mode: 'development',
 	entry: [
 		'./src/index.js'
 	],
@@ -17,56 +22,55 @@ const webpackConfig = {
 	},
 	module: {
 		rules: [
+			// {
+			// 	test: /.(sa|sc|c)ss$/,
+			// 	use: [
+			// 		MiniCssExtractPlugin.loader,
+			// 		'css-loader',
+			// 		'postcss-loader',
+			// 		'sass-loader',
+			// 	],
+			// },
 			{
-				test: /\.(js|jsx)$/,
-				exclude: /node_modules/,
-				loaders: [ 'babel-loader' ]
-			},
-			{
-				test: /\.css$/i,
-				use: ExtractTextPlugin.extract( {
-					fallback: 'style-loader',
-					use: 'css-loader'
-				} ),
-			},
-			{
-				test: /\.scss$/i,
-				exclude: /node_modules/,
-				use: ExtractTextPlugin.extract( {
-					use: [ 'css-loader', 'sass-loader' ]
-				} )
+				test: /.css$/,
+				use: [MiniCssExtractPlugin.loader, 'css-loader']
 			},
 			{
 				test: /\.(png|svg|jpg|gif)$/,
 				use: [
 					'file-loader'
 				]
+			},
+			{
+				test: /.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader'
+				} 
 			}
 		]
 	},
 	devtool: 'source-map',
 	plugins: [
+		new MiniCssExtractPlugin({
+			filename: 'style.bundle.css',
+		}),
 		new BrowserSyncPlugin( {
 				proxy: {
 					target: config.proxyURL
 				},
 				files: [
-					'**/*.php'
+					'**/*.php',
 				],
 				cors: true,
 				reloadDelay: 0
 			}
-		),
-		new ExtractTextPlugin( {
-			disable: false,
-			filename: 'style.bundle.css',
-			allChunks: true
-		} ),
+		)
 	]
 };
 
 if ( process.env.NODE_ENV === 'production' ) {
-	const buildFolder = path.resolve( __dirname, 'wp-react-boilerplate-built' );
+	const buildFolder = path.resolve( __dirname, 'wp-botframework-press-plugin-built' );
 	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
 		'mangle': {
 			'screw_ie8': true
