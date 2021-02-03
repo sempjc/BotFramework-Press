@@ -98,7 +98,7 @@ class WP_Botframework_Press {
     public function load_assets() {
         wp_register_script( 
             $this->plugin_domain . '-bundle', 
-            plugin_dir_url(__FILE__) . 'dist/bundle.js', 
+            plugin_dir_url(__FILE__) . './react-botframework-press/build/bundle.js', 
             array(), 
             false,
             'all'
@@ -116,7 +116,7 @@ class WP_Botframework_Press {
 
             wp_enqueue_script( $this->plugin_domain . '-bundle' );
             wp_add_inline_script( $this->plugin_domain . '-bundle', '', 'before');
-            wp_enqueue_style( $this->plugin_domain . '-bundle-styles', plugin_dir_url( __FILE__ ) . 'dist/style.bundle.css', array(), null,'all' );
+            wp_enqueue_style( $this->plugin_domain . '-bundle-styles', plugin_dir_url( __FILE__ ) . './react-botframework-press/build/bundle.css', array(), null,'all' );
     }
 }
 
